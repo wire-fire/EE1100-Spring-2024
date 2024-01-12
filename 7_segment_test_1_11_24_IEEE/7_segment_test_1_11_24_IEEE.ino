@@ -125,7 +125,7 @@ void setup() {
   pinMode(digit3,OUTPUT);
   pinMode(digit4,OUTPUT);
   pinMode(B,OUTPUT);
-  // Reverse-bias all diodes (aka turn everything off)
+  // Reverse-bias all diodes in display (aka turn everything off)
   digitalWrite(A,LOW);
   digitalWrite(B,LOW);
   digitalWrite(C,LOW);
