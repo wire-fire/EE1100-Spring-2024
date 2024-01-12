@@ -16,10 +16,6 @@
 //  E  |     | C
 //     |  D  |
 //       ---
-
-
-
-
 // Pull D# Low with A-->G (or DP) High to turn on segment!
 
 //Define statements to make code more legible
@@ -65,60 +61,29 @@ void digitOn(int num){
   }
 }
 
-//void refreshRate
-
-void setup() {
-  // Alot of outputs, I am not excited
-  pinMode(E,OUTPUT);
-  pinMode(digit1,OUTPUT);
-  pinMode(D,OUTPUT);
-  pinMode(A,OUTPUT);
-  pinMode(DP,OUTPUT);
-  pinMode(F,OUTPUT);
-  pinMode(C,OUTPUT);
-  pinMode(digit2,OUTPUT);
-  pinMode(G,OUTPUT);
-  pinMode(digit3,OUTPUT);
-  pinMode(digit4,OUTPUT);
-  pinMode(B,OUTPUT);
-  // Reverse-bias all diodes (display off hopefully)
-  digitalWrite(A,LOW);
-  digitalWrite(B,LOW);
-  digitalWrite(C,LOW);
-  digitalWrite(D,LOW);
-  digitalWrite(E,LOW);
-  digitalWrite(F,LOW);
-  digitalWrite(G,LOW);
-  digitalWrite(DP,LOW);
-  digitalWrite(digit1,HIGH);
-  digitalWrite(digit2,HIGH);
-  digitalWrite(digit3,HIGH);
-  digitalWrite(digit4,HIGH);
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
+void refreshRateDemo(){
   for (int i=50;i>=5;i-=1)
   {
+    // Digit 1 on
     digitOn(1);
+    // "I"
     digitalWrite(F,HIGH);
     digitalWrite(E,HIGH);
     delay(i);
+    // Digit 2 on
     digitOn(2);
+    // With previous "I" print, makes an "E"
     digitalWrite(A,HIGH);
     digitalWrite(G,HIGH);
     digitalWrite(D,HIGH);
     delay(i);
+    // Repeat on digit 3
     digitOn(3);
-    digitalWrite(A,HIGH);
-    digitalWrite(G,HIGH);
-    digitalWrite(D,HIGH);
     delay(i);
+    // Repeat on digit 4
     digitOn(4);
-    digitalWrite(A,HIGH);
-    digitalWrite(G,HIGH);
-    digitalWrite(D,HIGH);
     delay(i);
+    // Reset segments to off
     digitalWrite(F,LOW);
     digitalWrite(E,LOW);
     digitalWrite(A,LOW);
@@ -136,16 +101,47 @@ void loop() {
     digitOn(1);
     digitalWrite(F,HIGH);
     digitalWrite(E,HIGH);
-    delay(5);
     digitOn(2);
     digitalWrite(A,HIGH);
     digitalWrite(G,HIGH);
     digitalWrite(D,HIGH);
-    delay(5);
     digitOn(3);
-    delay(5);
     digitOn(4);
-    delay(5);
   }
+}
+
+void setup() {
+  // Don't freak out, this is just a bunch of initializations for the 12 outputs
+  // needed to drive the 1x4 7 segment display!
+  pinMode(E,OUTPUT);
+  pinMode(digit1,OUTPUT);
+  pinMode(D,OUTPUT);
+  pinMode(A,OUTPUT);
+  pinMode(DP,OUTPUT);
+  pinMode(F,OUTPUT);
+  pinMode(C,OUTPUT);
+  pinMode(digit2,OUTPUT);
+  pinMode(G,OUTPUT);
+  pinMode(digit3,OUTPUT);
+  pinMode(digit4,OUTPUT);
+  pinMode(B,OUTPUT);
+  // Reverse-bias all diodes (aka turn everything off)
+  digitalWrite(A,LOW);
+  digitalWrite(B,LOW);
+  digitalWrite(C,LOW);
+  digitalWrite(D,LOW);
+  digitalWrite(E,LOW);
+  digitalWrite(F,LOW);
+  digitalWrite(G,LOW);
+  digitalWrite(DP,LOW);
+  digitalWrite(digit1,HIGH);
+  digitalWrite(digit2,HIGH);
+  digitalWrite(digit3,HIGH);
+  digitalWrite(digit4,HIGH);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  refreshRateDemo();
   delay(100); //Stability delay
 }
