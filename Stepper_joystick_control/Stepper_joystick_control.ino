@@ -10,9 +10,10 @@
 #define in2 6
 #define in3 5
 #define in4 4  //Nice
+#define x A0
+#define y A1
 //Global Variable(s)
-int delayTime = 30;
-
+int delayTime = 5;
 
 void A() {
   digitalWrite(in1, HIGH);
@@ -70,13 +71,18 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+  pinMode(x,INPUT); //0 --> 1023
+  pinMode(y,INPUT); //0 --> 1023
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  int xin;
   unsigned long hold = millis() + 2000;  //set hold to current runtime + 2 seconds
   while (millis() < hold) {
     Forward();  // Clockwise rotation
+    xin = analogRead(x);
+    delayTime = map(xin, 0, 1023, 0, 5); //map(pin, fromLow, fromHigh, toLow, toHigh)
   }
   hold = millis() + 2000;  //reset hold value to current runtime + 2 seconds
   while (millis() < hold) {
